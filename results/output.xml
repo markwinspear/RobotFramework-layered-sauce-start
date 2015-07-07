@@ -1,95 +1,131 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<robot generated="20150707 11:25:40.062" generator="Robot 2.9b2 (Python 2.7.10 on win32)">
+<robot generated="20150707 13:01:49.116" generator="Robot 2.9b2 (Python 2.7.10 on win32)">
 <suite source="E:\Google Drive\Documents\Dev &amp; Test\Robot Framework with Selenium\development\robot-scripts\layered-sauce-start\tests\amazon.robot" id="s1" name="Amazon">
 <test id="s1-t1" name="Logged out user can search for products">
-<kw type="setup" name="Common.Begin Web Test">
-<msg timestamp="20150707 11:25:40.148" level="FAIL">No keyword with name 'Common.Begin Web Test' found.</msg>
-<status status="FAIL" endtime="20150707 11:25:40.148" starttime="20150707 11:25:40.148"></status>
+<kw type="setup" name="Begin Web Test" library="Common">
+<kw name="Open Browser" library="Selenium2Library">
+<doc>Opens a new browser instance to given URL.</doc>
+<arguments>
+<arg>about:blank</arg>
+<arg>${BROWSER}</arg>
+<arg>remote_url=${REMOTE_URL}</arg>
+<arg>desired_capabilities=${DESIRED_CAPABILITIES}</arg>
+</arguments>
+<msg timestamp="20150707 13:01:50.011" level="INFO">Opening browser 'ie' to base url 'about:blank' through remote server at 'http://markwinspear:3e478c65-7a2a-4119-b4a1-cb96b23e6ed5@ondemand.saucelabs.com:80/wd/hub'</msg>
+<status status="PASS" endtime="20150707 13:01:55.495" starttime="20150707 13:01:50.008"></status>
 </kw>
-<kw type="teardown" name="Common.End Web Test">
-<msg timestamp="20150707 11:25:40.153" level="FAIL">No keyword with name 'Common.End Web Test' found.</msg>
-<status status="FAIL" endtime="20150707 11:25:40.154" starttime="20150707 11:25:40.153">No keyword with name 'Common.End Web Test' found.</status>
+<status status="PASS" endtime="20150707 13:01:55.496" starttime="20150707 13:01:50.007"></status>
+</kw>
+<kw name="Search for Products" library="Amazon">
+<kw name="Load" library="LandingPage">
+<kw name="Go To" library="Selenium2Library">
+<doc>Navigates the active browser instance to the provided URL.</doc>
+<arguments>
+<arg>http://www.amazon.com</arg>
+</arguments>
+<msg timestamp="20150707 13:01:55.504" level="INFO">Opening url 'http://www.amazon.com'</msg>
+<status status="PASS" endtime="20150707 13:01:59.981" starttime="20150707 13:01:55.503"></status>
+</kw>
+<status status="PASS" endtime="20150707 13:01:59.996" starttime="20150707 13:01:55.501"></status>
+</kw>
+<kw name="Verify Page Loaded" library="LandingPage">
+<kw name="Wait Until Page Contains" library="Selenium2Library">
+<doc>Waits until `text` appears on current page.</doc>
+<arguments>
+<arg>Your Amazon.com</arg>
+</arguments>
+<status status="PASS" endtime="20150707 13:02:05.675" starttime="20150707 13:01:59.996"></status>
+</kw>
+<status status="PASS" endtime="20150707 13:02:05.675" starttime="20150707 13:01:59.996"></status>
+</kw>
+<kw name="Search for Products" library="TopNav">
+<kw name="Enter Search Term" library="TopNav">
+<kw name="Input Text" library="Selenium2Library">
+<doc>Types the given `text` into text field identified by `locator`.</doc>
+<arguments>
+<arg>id=twotabsearchtextbox</arg>
+<arg>Ferrari 458</arg>
+</arguments>
+<msg timestamp="20150707 13:02:05.682" level="INFO">Typing text 'Ferrari 458' into text field 'id=twotabsearchtextbox'</msg>
+<status status="PASS" endtime="20150707 13:02:07.190" starttime="20150707 13:02:05.681"></status>
+</kw>
+<status status="PASS" endtime="20150707 13:02:07.191" starttime="20150707 13:02:05.680"></status>
+</kw>
+<kw name="Submit Search" library="TopNav">
+<kw name="Click Button" library="Selenium2Library">
+<doc>Clicks a button identified by `locator`.</doc>
+<arguments>
+<arg>xpath=//*[@id="nav-search"]/form/div[2]/div/input</arg>
+</arguments>
+<msg timestamp="20150707 13:02:07.194" level="INFO">Clicking button 'xpath=//*[@id="nav-search"]/form/div[2]/div/input'.</msg>
+<status status="PASS" endtime="20150707 13:02:10.804" starttime="20150707 13:02:07.193"></status>
+</kw>
+<status status="PASS" endtime="20150707 13:02:10.804" starttime="20150707 13:02:07.192"></status>
+</kw>
+<status status="PASS" endtime="20150707 13:02:10.804" starttime="20150707 13:02:05.675"></status>
+</kw>
+<kw name="Verify Search Completed" library="SearchResults">
+<kw name="Wait Until Page Contains" library="Selenium2Library">
+<doc>Waits until `text` appears on current page.</doc>
+<arguments>
+<arg>results for "Ferrari 458"</arg>
+</arguments>
+<status status="PASS" endtime="20150707 13:02:11.188" starttime="20150707 13:02:10.804"></status>
+</kw>
+<status status="PASS" endtime="20150707 13:02:11.188" starttime="20150707 13:02:10.804"></status>
+</kw>
+<status status="PASS" endtime="20150707 13:02:11.192" starttime="20150707 13:01:55.500"></status>
+</kw>
+<kw type="teardown" name="End Web Test" library="Common">
+<kw name="Run Keyword If" library="BuiltIn">
+<doc>Runs the given keyword with the given arguments, if ``condition`` is true.</doc>
+<arguments>
+<arg>'${REMOTE_URL}' != ''</arg>
+<arg>Update Saucelabs Test Result</arg>
+<arg>${SUITE_NAME}: ${TEST_NAME}</arg>
+<arg>${TEST_STATUS}</arg>
+<arg>${TEST_TAGS}</arg>
+<arg>${REMOTE_URL}</arg>
+</arguments>
+<kw name="Update Saucelabs Test Result" library="Saucelabs">
+<arguments>
+<arg>${SUITE_NAME}: ${TEST_NAME}</arg>
+<arg>${TEST_STATUS}</arg>
+<arg>${TEST_TAGS}</arg>
+<arg>${REMOTE_URL}</arg>
+</arguments>
+<msg timestamp="20150707 13:02:11.202" level="INFO">Starting new HTTPS connection (1): saucelabs.com</msg>
+<msg timestamp="20150707 13:02:12.947" html="yes" level="INFO">&lt;a href="https://saucelabs.com/jobs/621df04c418d4e1fa6ea1f9a024191de/video.flv"&gt;video.flv&lt;/a&gt;</msg>
+<status status="PASS" endtime="20150707 13:02:12.951" starttime="20150707 13:02:11.196"></status>
+</kw>
+<status status="PASS" endtime="20150707 13:02:12.951" starttime="20150707 13:02:11.192"></status>
+</kw>
+<kw name="Close Browser" library="Selenium2Library">
+<doc>Closes the current browser.</doc>
+<status status="PASS" endtime="20150707 13:02:13.385" starttime="20150707 13:02:12.951"></status>
+</kw>
+<status status="PASS" endtime="20150707 13:02:13.386" starttime="20150707 13:02:11.192"></status>
 </kw>
 <tags>
-<tag>Smoke</tag>
+<tag>Current</tag>
 </tags>
-<status status="FAIL" endtime="20150707 11:25:40.154" critical="yes" starttime="20150707 11:25:40.143">Setup failed:
-No keyword with name 'Common.Begin Web Test' found.
-
-Also teardown failed:
-No keyword with name 'Common.End Web Test' found.</status>
-</test>
-<test id="s1-t2" name="Logged out user can view a product">
-<kw type="setup" name="Common.Begin Web Test">
-<msg timestamp="20150707 11:25:40.160" level="FAIL">No keyword with name 'Common.Begin Web Test' found.</msg>
-<status status="FAIL" endtime="20150707 11:25:40.160" starttime="20150707 11:25:40.160"></status>
-</kw>
-<kw type="teardown" name="Common.End Web Test">
-<msg timestamp="20150707 11:25:40.164" level="FAIL">No keyword with name 'Common.End Web Test' found.</msg>
-<status status="FAIL" endtime="20150707 11:25:40.164" starttime="20150707 11:25:40.164">No keyword with name 'Common.End Web Test' found.</status>
-</kw>
-<tags>
-<tag>Smoke</tag>
-</tags>
-<status status="FAIL" endtime="20150707 11:25:40.165" critical="yes" starttime="20150707 11:25:40.155">Setup failed:
-No keyword with name 'Common.Begin Web Test' found.
-
-Also teardown failed:
-No keyword with name 'Common.End Web Test' found.</status>
-</test>
-<test id="s1-t3" name="Logged out user can add product to cart">
-<kw type="setup" name="Common.Begin Web Test">
-<msg timestamp="20150707 11:25:40.171" level="FAIL">No keyword with name 'Common.Begin Web Test' found.</msg>
-<status status="FAIL" endtime="20150707 11:25:40.171" starttime="20150707 11:25:40.171"></status>
-</kw>
-<kw type="teardown" name="Common.End Web Test">
-<msg timestamp="20150707 11:25:40.176" level="FAIL">No keyword with name 'Common.End Web Test' found.</msg>
-<status status="FAIL" endtime="20150707 11:25:40.176" starttime="20150707 11:25:40.176">No keyword with name 'Common.End Web Test' found.</status>
-</kw>
-<tags>
-<tag>Smoke</tag>
-</tags>
-<status status="FAIL" endtime="20150707 11:25:40.176" critical="yes" starttime="20150707 11:25:40.166">Setup failed:
-No keyword with name 'Common.Begin Web Test' found.
-
-Also teardown failed:
-No keyword with name 'Common.End Web Test' found.</status>
-</test>
-<test id="s1-t4" name="Logged out user must sign in to check out">
-<kw type="setup" name="Common.Begin Web Test">
-<msg timestamp="20150707 11:25:40.185" level="FAIL">No keyword with name 'Common.Begin Web Test' found.</msg>
-<status status="FAIL" endtime="20150707 11:25:40.185" starttime="20150707 11:25:40.184"></status>
-</kw>
-<kw type="teardown" name="Common.End Web Test">
-<msg timestamp="20150707 11:25:40.188" level="FAIL">No keyword with name 'Common.End Web Test' found.</msg>
-<status status="FAIL" endtime="20150707 11:25:40.189" starttime="20150707 11:25:40.188">No keyword with name 'Common.End Web Test' found.</status>
-</kw>
-<tags>
-<tag>Smoke</tag>
-</tags>
-<status status="FAIL" endtime="20150707 11:25:40.189" critical="yes" starttime="20150707 11:25:40.178">Setup failed:
-No keyword with name 'Common.Begin Web Test' found.
-
-Also teardown failed:
-No keyword with name 'Common.End Web Test' found.</status>
+<status status="PASS" endtime="20150707 13:02:13.390" critical="yes" starttime="20150707 13:01:50.005"></status>
 </test>
 <doc>This is some basic info about the whole suite</doc>
-<status status="FAIL" endtime="20150707 11:25:40.191" starttime="20150707 11:25:40.073"></status>
+<status status="PASS" endtime="20150707 13:02:13.392" starttime="20150707 13:01:49.116"></status>
 </suite>
 <statistics>
 <total>
-<stat fail="4" pass="0">Critical Tests</stat>
-<stat fail="4" pass="0">All Tests</stat>
+<stat fail="0" pass="1">Critical Tests</stat>
+<stat fail="0" pass="1">All Tests</stat>
 </total>
 <tag>
-<stat fail="4" pass="0">Smoke</stat>
+<stat fail="0" pass="1">Current</stat>
 </tag>
 <suite>
-<stat fail="4" id="s1" name="Amazon" pass="0">Amazon</stat>
+<stat fail="0" id="s1" name="Amazon" pass="1">Amazon</stat>
 </suite>
 </statistics>
 <errors>
-<msg timestamp="20150707 11:25:40.139" level="ERROR">Error in file 'E:\Google Drive\Documents\Dev &amp; Test\Robot Framework with Selenium\development\robot-scripts\layered-sauce-start\tests\amazon.robot': Resource file 'Common.robot' does not exist.</msg>
-<msg timestamp="20150707 11:25:40.141" level="ERROR">Error in file 'E:\Google Drive\Documents\Dev &amp; Test\Robot Framework with Selenium\development\robot-scripts\layered-sauce-start\tests\amazon.robot': Resource file 'layered-sauce-start\Resources\Amazon.robot' does not exist.</msg>
 </errors>
 </robot>
